@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vestibular Center | Rehabilitación Vestibular y Fonoaudiología Especializada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables CSS - Paleta de colores médicos profesionales */
+        :root {
+            --azul-profesional: #1a6b9c;
+            --azul-claro: #4a9bd8;
+            --azul-suave: #e8f4fc;
+            --verde-esperanza: #2e8b57;
+            --verde-claro: #e7f5ec;
+            --blanco-puro: #ffffff;
+            --blanco-roto: #f8f9fa;
+            --gris-profesional: #4a5568;
+            --gris-claro: #718096;
+            --gris-borde: #e2e8f0;
+            --dorado-accent: #d4af37;
+            --rojo-urgencia: #e53e3e;
+            --sombra: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --sombra-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transicion: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: var(--gris-profesional);
+            background-color: var(--blanco-puro);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--azul-profesional);
+            margin-bottom: 1.2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* Header Médico Profesional */
+        .header {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transicion);
+            border-bottom: 1px solid var(--gris-borde);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--azul-profesional);
+        }
+
+        .logo i {
+            margin-right: 12px;
+            color: var(--azul-claro);
+            font-size: 2.2rem;
+        }
+
+        .logo span {
+            color: var(--verde-esperanza);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 32px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gris-profesional);
+            font-weight: 500;
+            transition: var(--transicion);
+            position: relative;
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--verde-esperanza));
+            transition: var(--transicion);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover {
+            color: var(--azul-profesional);
+        }
+
+        .btn-cita {
+            background: linear-gradient(135deg, var(--azul-claro), var(--azul-profesional));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transicion);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 20px;
+        }
+
+        .btn-cita:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 107, 156, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--azul-profesional);
+            cursor: pointer;
+        }
+
+        /* Banner de Emergencia/Urgencia */
+        .emergency-banner {
+            background: linear-gradient(135deg, #ff6b6b, #e53e3e);
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 80px;
+            box-shadow: 0 2px 10px rgba(229, 62, 62, 0.2);
+        }
+
+        .emergency-banner i {
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Hero Section Médico */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(135deg, rgba(232, 244, 252, 0.9) 0%, rgba(231, 245, 236, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(74, 155, 216, 0.1), rgba(46, 139, 87, 0.1));
+            clip-path: polygon(100% 0, 100% 100%, 0 0);
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 650px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--azul-profesional);
+        }
+
+        .hero-content h1 span {
+            color: var(--verde-esperanza);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gris-profesional);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: var(--gris-claro);
+            line-height: 1.8;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--azul-claro), var(--azul-profesional));
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transicion);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 20px rgba(74, 155, 216, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(74, 155, 216, 0.4);
+        }
+
+        .hero-image {
+            flex: 1;
+            max-width: 550px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--sombra-hover);
+            border: 8px solid white;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transicion);
+        }
+
+        /* Sección de Síntomas de Alerta */
+        .sintomas-alerta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(255, 245, 245, 0.9) 0%, rgba(255, 250, 250, 0.9) 100%);
+            position: relative;
+        }
+
+        .alerta-container {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: var(--sombra-hover);
+            border-left: 8px solid var(--rojo-urgencia);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alerta-container::before {
+            content: '⚠';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4rem;
+            color: rgba(229, 62, 62, 0.1);
+            font-weight: bold;
+        }
+
+        .alerta-title {
+            color: var(--rojo-urgencia);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sintomas-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .sintoma-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: var(--blanco-roto);
+            border-radius: 10px;
+            transition: var(--transicion);
+            border: 1px solid var(--gris-borde);
+        }
+
+        .sintoma-item:hover {
+            transform: translateX(10px);
+            border-color: var(--azul-claro);
+            box-shadow: var(--sombra);
+        }
+
+        .sintoma-icon {
+            color: var(--rojo-urgencia);
+            font-size: 1.8rem;
+            min-width: 40px;
+        }
+
+        .sintoma-text h3 {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: var(--gris-profesional);
+        }
+
+        .llamado-accion {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--azul-suave), var(--verde-claro));
+            border-radius: 10px;
+        }
+
+        .llamado-accion h3 {
+            color: var(--azul-profesional);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        /* Sección Servicios */
+        .servicios {
+            padding: 100px 0;
+            background: var(--blanco-puro);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--azul-profesional);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--verde-esperanza));
+            border-radius: 2px;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .servicio-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            border: 1px solid var(--gris-borde);
+            height: 100%;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--sombra-hover);
+            border-color: var(--azul-claro);
+        }
+
+        .servicio-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .servicio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transicion);
+        }
+
+        .servicio-card:hover .servicio-img img {
+            transform: scale(1.05);
+        }
+
+        .servicio-content {
+            padding: 30px;
+        }
+
+        .servicio-icon {
+            font-size: 2.5rem;
+            color: var(--azul-claro);
+            margin-bottom: 20px;
+        }
+
+        .servicio-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--azul-profesional);
+        }
+
+        .servicio-content p {
+            color: var(--gris-claro);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .servicio-beneficios {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .servicio-beneficios li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gris-borde);
+            color: var(--gris-profesional);
+        }
+
+        .servicio-beneficios li:last-child {
+            border-bottom: none;
+        }
+
+        .servicio-beneficios li i {
+            color: var(--verde-esperanza);
+            margin-right: 10px;
+        }
+
+        /* Sección Especialistas */
+        .especialistas {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--azul-suave) 0%, rgba(232, 244, 252, 0.5) 100%);
+        }
+
+        .especialistas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .especialista-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            text-align: center;
+            border: 1px solid var(--gris-borde);
+        }
+
+        .especialista-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .especialista-img {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .especialista-img::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            z-index: 1;
+        }
+
+        .especialista-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .especialista-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .especialista-content h3 {
+            margin-bottom: 8px;
+            color: var(--azul-profesional);
+        }
+
+        .especialista-especialidad {
+            color: var(--verde-esperanza);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .especialista-creditos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .credito-badge {
+            background: var(--azul-suave);
+            color: var(--azul-profesional);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Sección Testimonios */
+        .testimonios {
+            padding: 100px 0;
+            background: var(--blanco-puro);
+        }
+
+        .testimonios-slider {
+            max-width: 900px;
+            margin: 50px auto 0;
+            position: relative;
+        }
+
+        .testimonio-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--sombra);
+            border: 1px solid var(--gris-borde);
+            margin: 20px;
+            position: relative;
+        }
+
+        .testimonio-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 5rem;
+            color: var(--azul-suave);
+            font-family: 'Montserrat', serif;
+        }
+
+        .testimonio-texto {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            color: var(--gris-profesional);
+        }
+
+        .testimonio-cliente {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cliente-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--azul-claro);
+        }
+
+        .cliente-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cliente-info h4 {
+            margin-bottom: 5px;
+            color: var(--azul-profesional);
+        }
+
+        .cliente-info p {
+            color: var(--gris-claro);
+            font-size: 0.9rem;
+        }
+
+        /* Sección Certificaciones y Seguros */
+        .certificaciones {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--verde-claro) 0%, rgba(231, 245, 236, 0.5) 100%);
+        }
+
+        .certificaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            align-items: center;
+            justify-items: center;
+            margin-top: 40px;
+        }
+
+        .certificacion-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--sombra);
+            text-align: center;
+            transition: var(--transicion);
+            border: 1px solid var(--gris-borde);
+        }
+
+        .certificacion-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .certificacion-icon {
+            font-size: 2.5rem;
+            color: var(--verde-esperanza);
+            margin-bottom: 15px;
+        }
+
+        /* Sección Contacto */
+        .contacto {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--azul-suave) 0%, rgba(232, 244, 252, 0.9) 100%);
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .contacto-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contacto-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            border-left: 4px solid var(--azul-claro);
+        }
+
+        .contacto-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .contacto-icon {
+            font-size: 1.8rem;
+            color: var(--azul-claro);
+            min-width: 40px;
+        }
+
+        .contacto-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--sombra-hover);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gris-profesional);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--gris-borde);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transicion);
+            background: var(--blanco-roto);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--azul-claro);
+            box-shadow: 0 0 0 3px rgba(74, 155, 216, 0.1);
+        }
+
+        /* Footer Médico */
+        .footer {
+            background: var(--azul-profesional);
+            color: white;
+            padding: 70px 0 30px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--verde-esperanza));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 45px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo p {
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        .horario-atencion {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .horario-atencion h4 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .horario-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .horario-item:last-child {
+            border-bottom: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transicion);
+            font-size: 1.2rem;
+        }
+
+        .social-icons a:hover {
+            background: var(--azul-claro);
+            transform: translateY(-5px);
+        }
+
+        .footer-links h3, .footer-servicios h3, .footer-newsletter h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after, .footer-servicios h3::after, .footer-newsletter h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--azul-claro);
+        }
+
+        .footer-links ul, .footer-servicios ul {
+            list-style: none;
+        }
+
+        .footer-links li, .footer-servicios li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a, .footer-servicios a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transicion);
+            display: inline-block;
+        }
+
+        .footer-links a:hover, .footer-servicios a:hover {
+            color: white;
+            padding-left: 10px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-form input {
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transicion);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transicion);
+            border: 3px solid white;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Botón emergencia */
+        .emergencia-float {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #ff6b6b, #e53e3e);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(229, 62, 62, 0.4);
+            z-index: 999;
+            transition: var(--transicion);
+            border: 3px solid white;
+        }
+
+        .emergencia-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 30px rgba(229, 62, 62, 0.5);
+        }
+
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin-bottom: 60px;
+                max-width: 100%;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+            
+            .hero-image {
+                max-width: 700px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.4s;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 30px 0;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 15px 0;
+            }
+
+            .btn-cita {
+                margin: 20px 0 0 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            
+            .alerta-container {
+                padding: 30px 20px;
+            }
+            
+            .sintomas-lista {
+                grid-template-columns: 1fr;
+            }
+            
+            .servicios-grid, .especialistas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contacto-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .alerta-title {
+                font-size: 1.8rem;
+            }
+            
+            .emergencia-float {
+                bottom: 110px;
+                right: 20px;
+            }
+            
+            .whatsapp-float {
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/573001234567?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20para%20evaluación%20vestibular" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Botón Emergencia -->
+    <a href="tel:+573001234567" class="emergencia-float">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-ear"></i>
+                    <span>Vestibular</span> Center
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#sintomas">Síntomas</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#especialistas">Especialistas</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <a href="#contacto" class="btn-cita">Agendar Cita</a>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner de Emergencia -->
+    <div class="emergency-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        ¡ATENCIÓN INMEDIATA! Si experimenta vértigo severo o caídas recurrentes, llámenos de inmediato.
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Recupere su <span>equilibrio y calidad de vida</span></h1>
+                <div class="hero-subtitle">Especialistas en Rehabilitación Vestibular y Fonoaudiología</div>
+                <p>En Vestibular Center entendemos el impacto que los trastornos del equilibrio tienen en su vida diaria. Nuestro equipo multidisciplinario de especialistas está dedicado a proporcionar soluciones personalizadas basadas en evidencia científica para tratar vértigo, mareos y desequilibrios.</p>
+                <a href="#contacto" class="btn-primary">Solicitar Evaluación sin Costo</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Especialista en rehabilitación vestibular">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Síntomas de Alerta -->
+    <section class="sintomas-alerta" id="sintomas">
+        <div class="container">
+            <div class="alerta-container">
+                <h2 class="alerta-title">¿Experimenta alguno de estos síntomas?</h2>
+                <p class="fade-in">Si siente alguno de los siguientes síntomas recurrentemente, podría estar sufriendo de un trastorno vestibular que requiere atención especializada:</p>
+                
+                <div class="sintomas-lista">
+                    <div class="sintoma-item fade-in">
+                        <div class="sintoma-icon">
+                            <i class="fas fa-dizzy"></i>
+                        </div>
+                        <div class="sintoma-text">
+                            <h3>Sensación de mareo sin explicación</h3>
+                            <p>Mareos que aparecen sin motivo aparente, incluso estando en reposo.</p>
+                        </div>
+                    </div>
+                    <div class="sintoma-item fade-in">
+                        <div class="sintoma-icon">
+                            <i class="fas fa-walking"></i>
+                        </div>
+                        <div class="sintoma-text">
+                            <h3>Sensación de inestabilidad</h3>
+                            <p>Se siente como si estuviera caminando sobre algodones o en un barco.</p>
+                        </div>
+                    </div>
+                    <div class="sintoma-item fade-in">
+                        <div class="sintoma-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="sintoma-text">
+                            <h3>Todo gira cuando haces movimientos</h3>
+                            <p>Al levantarse, girar la cabeza o cambiar de posición, siente que todo gira.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="llamado-accion fade-in">
+                    <h3>¡No normalice estos síntomas!</h3>
+                    <p>El 85% de los casos de vértigo y mareo crónico pueden mejorar significativamente con el tratamiento adecuado. Permítanos ayudarle a recuperar su equilibrio.</p>
+                    <a href="#contacto" class="btn-primary" style="margin-top: 20px;">Evaluar mis síntomas ahora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Servicios -->
+    <section class="servicios" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios Especializados</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Ofrecemos tratamientos integrales basados en las últimas investigaciones científicas en terapia vestibular y fonoaudiología.
+            </p>
+            
+            <div class="servicios-grid">
+                <div class="servicio-card fade-in">
+                    <div class="servicio-img">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rehabilitación Vestibular">
+                    </div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Rehabilitación Vestibular</h3>
+                        <p>Tratamiento personalizado para vértigo posicional paroxístico benigno (VPPB), neuritis vestibular, enfermedad de Ménière y otros trastornos del equilibrio.</p>
+                        
+                        <ul class="servicio-beneficios">
+                            <li><i class="fas fa-check-circle"></i> Evaluación con videonistagmografía</li>
+                            <li><i class="fas fa-check-circle"></i> Maniobras de reposicionamiento</li>
+                            <li><i class="fas fa-check-circle"></i> Ejercicios personalizados de equilibrio</li>
+                            <li><i class="fas fa-check-circle"></i> Seguimiento continuo del progreso</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="servicio-card fade-in">
+                    <div class="servicio-img">
+                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fonoaudiología">
+                    </div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">
+                            <i class="fas fa-comment-medical"></i>
+                        </div>
+                        <h3>Fonoaudiología Especializada</h3>
+                        <p>Evaluación y tratamiento de trastornos de la comunicación, voz, habla, lenguaje y deglución en todas las edades.</p>
+                        
+                        <ul class="servicio-beneficios">
+                            <li><i class="fas fa-check-circle"></i> Terapia del lenguaje para niños y adultos</li>
+                            <li><i class="fas fa-check-circle"></i> Rehabilitación vocal profesional</li>
+                            <li><i class="fas fa-check-circle"></i> Tratamiento de trastornos de deglución</li>
+                            <li><i class="fas fa-check-circle"></i> Terapia para afasia y disartria</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="servicio-card fade-in">
+                    <div class="servicio-img">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Evaluación Integral">
+                    </div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h3>Evaluación Integral del Equilibrio</h3>
+                        <p>Diagnóstico preciso mediante tecnología avanzada para identificar la causa raíz de sus problemas de equilibrio.</p>
+                        
+                        <ul class="servicio-beneficios">
+                            <li><i class="fas fa-check-circle"></i> Pruebas de función vestibular</li>
+                            <li><i class="fas fa-check-circle"></i> Evaluación posturográfica</li>
+                            <li><i class="fas fa-check-circle"></i> Audiometría completa</li>
+                            <li><i class="fas fa-check-circle"></i> Análisis computarizado de la marcha</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Especialistas -->
+    <section class="especialistas" id="especialistas">
+        <div class="container">
+            <h2 class="section-title">Nuestro Equipo de Especialistas</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Contamos con profesionales certificados y con amplia experiencia en el diagnóstico y tratamiento de trastornos vestibulares y fonoaudiológicos.
+            </p>
+            
+            <div class="especialistas-grid">
+                <div class="especialista-card fade-in">
+                    <div class="especialista-img">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dra. María Rodríguez">
+                    </div>
+                    <div class="especialista-content">
+                        <h3>Dra. María Rodríguez</h3>
+                        <p class="especialista-especialidad">Fonoaudióloga - Especialista en Vestibular</p>
+                        <p>Más de 15 años de experiencia en rehabilitación vestibular. Certificada por la Asociación Americana de Terapia Vestibular.</p>
+                        <div class="especialista-creditos">
+                            <span class="credito-badge">Ph.D. en Neurociencias</span>
+                            <span class="credito-badge">Certificación VRT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="especialista-card fade-in">
+                    <div class="especialista-img">
+                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dr. Carlos Mendoza">
+                    </div>
+                    <div class="especialista-content">
+                        <h3>Dr. Carlos Mendoza</h3>
+                        <p class="especialista-especialidad">Audiólogo - Especialista en Equilibrio</p>
+                        <p>Especialista en diagnóstico vestibular avanzado. Ha publicado investigaciones en revistas internacionales sobre trastornos del equilibrio.</p>
+                        <div class="especialista-creditos">
+                            <span class="credito-badge">M.Sc. Audiología</span>
+                            <span class="credito-badge">Certificado ENTs</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="especialista-card fade-in">
+                    <div class="especialista-img">
+                        <img src="https://images.unsplash.com/photo-1594824434340-7e7dfc37cabb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lic. Ana Gómez">
+                    </div>
+                    <div class="especialista-content">
+                        <h3>Lic. Ana Gómez</h3>
+                        <p class="especialista-especialidad">Fonoaudióloga - Terapia del Lenguaje</p>
+                        <p>Especialista en trastornos de la comunicación en adultos mayores y rehabilitación post-ACV. Enfoque en terapia personalizada.</p>
+                        <div class="especialista-creditos">
+                            <span class="credito-badge">Especialización Lenguaje</span>
+                            <span class="credito-badge">Terapia Neurológica</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Certificaciones -->
+    <section class="certificaciones">
+        <div class="container">
+            <h2 class="section-title">Certificaciones y Convenios</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Nuestra clínica cuenta con las certificaciones y convenios necesarios para garantizar la máxima calidad en nuestros servicios.
+            </p>
+            
+            <div class="certificaciones-grid">
+                <div class="certificacion-item fade-in">
+                    <div class="certificacion-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Certificación ISO 9001</h4>
+                    <p>Calidad en procesos médicos</p>
+                </div>
+                
+                <div class="certificacion-item fade-in">
+                    <div class="certificacion-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4>Convenio con Aseguradoras</h4>
+                    <p>Coomeva, Sura, Sanitas, etc.</p>
+                </div>
+                
+                <div class="certificacion-item fade-in">
+                    <div class="certificacion-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h4>Afiliación Internacional</h4>
+                    <p>Barany Society Member</p>
+                </div>
+                
+                <div class="certificacion-item fade-in">
+                    <div class="certificacion-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h4>Premio a la Excelencia</h4>
+                    <p>Mejor Clínica 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Testimonios -->
+    <section class="testimonios" id="testimonios">
+        <div class="container">
+            <h2 class="section-title">Historias de Recuperación</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Conozca las experiencias de pacientes que han recuperado su calidad de vida con nuestros tratamientos.
+            </p>
+            
+            <div class="testimonios-slider">
+                <div class="testimonio-card fade-in">
+                    <p class="testimonio-texto">"Sufrí de vértigo por más de 2 años. Había visitado varios médicos sin resultados. En Vestibular Center me diagnosticaron VPPB correctamente y en solo 3 sesiones de terapia vestibular, mi vértigo desapareció. Hoy puedo hacer mi vida normal sin miedo a los mareos."</p>
+                    <div class="testimonio-cliente">
+                        <div class="cliente-img">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Martínez">
+                        </div>
+                        <div class="cliente-info">
+                            <h4>Laura Martínez</h4>
+                            <p>Paciente con VPPB - Recuperada en 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section class="contacto" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Agende su Evaluación</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Dé el primer paso hacia su recuperación. Complete el formulario y nos pondremos en contacto con usted en menos de 24 horas.
+            </p>
+            
+            <div class="contacto-grid">
+                <div class="contacto-info">
+                    <div class="contacto-item fade-in">
+                        <div class="contacto-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Nuestra Ubicación</h3>
+                            <p>Calle 85 # 15-45, Consultorio 302<br>Centro Médico Los Andes<br>Bogotá, Colombia</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contacto-item fade-in">
+                        <div class="contacto-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Teléfonos de Contacto</h3>
+                            <p>+57 (1) 345 6789<br>+57 300 123 4567 (WhatsApp)<br>Emergencias: +57 310 987 6543</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contacto-item fade-in">
+                        <div class="contacto-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Horario de Atención</h3>
+                            <p>Lunes a Viernes: 7:00 am - 7:00 pm<br>Sábados: 8:00 am - 2:00 pm<br>Urgencias: 24/7</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contacto-item fade-in">
+                        <div class="contacto-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Correo Electrónico</h3>
+                            <p>info@vestibularcenter.com<br>citas@vestibularcenter.com<br>urgencias@vestibularcenter.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contacto-form fade-in">
+                    <form id="form-cita">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" class="form-control" placeholder="Ingrese su nombre completo" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" class="form-control" placeholder="Ingrese su número de contacto" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" class="form-control" placeholder="Ingrese su correo electrónico">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sintomas">Describa sus síntomas principales *</label>
+                            <textarea id="sintomas" class="form-control" rows="4" placeholder="Ej: Mareos al levantarme, sensación de giro, inestabilidad..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fecha">Fecha preferida para la cita</label>
+                            <input type="date" id="fecha" class="form-control">
+                        </div>
+                        
+                        <button type="submit" class="btn-primary" style="width: 100%; padding: 18px; font-size: 1.1rem;">
+                            Solicitar Evaluación sin Costo
+                        </button>
+                        
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--gris-claro); text-align: center;">
+                            * Un especialista se comunicará con usted para confirmar la disponibilidad.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#" class="logo" style="color: white;">
+                        <i class="fas fa-ear"></i>
+                        <span>Vestibular</span> Center
+                    </a>
+                    <p>Especialistas en rehabilitación vestibular y fonoaudiología. Más de 20 años recuperando la calidad de vida de nuestros pacientes.</p>
+                    
+                    <div class="horario-atencion">
+                        <h4>Horario de Atención</h4>
+                        <div class="horario-item">
+                            <span>Lunes - Viernes</span>
+                            <span>7:00 am - 7:00 pm</span>
+                        </div>
+                        <div class="horario-item">
+                            <span>Sábados</span>
+                            <span>8:00 am - 2:00 pm</span>
+                        </div>
+                        <div class="horario-item">
+                            <span>Urgencias</span>
+                            <span>24/7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#sintomas">Síntomas de Alerta</a></li>
+                        <li><a href="#servicios">Nuestros Servicios</a></li>
+                        <li><a href="#especialistas">Nuestro Equipo</a></li>
+                        <li><a href="#testimonios">Testimonios</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-servicios">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#servicios">Rehabilitación Vestibular</a></li>
+                        <li><a href="#servicios">Fonoaudiología</a></li>
+                        <li><a href="#servicios">Evaluación del Equilibrio</a></li>
+                        <li><a href="#servicios">Terapia del Lenguaje</a></li>
+                        <li><a href="#servicios">Audiología</a></li>
+                        <li><a href="#servicios">Consultas Especializadas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Suscríbase a nuestro boletín</h3>
+                    <p>Reciba información sobre salud vestibular, consejos y promociones especiales.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Su correo electrónico" required>
+                        <button type="submit" class="btn-cita" style="width: 100%; margin-top: 10px;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Vestibular Center. Todos los derechos reservados. | Clínica especializada en rehabilitación vestibular y fonoaudiología</p>
+                <p style="margin-top: 10px;">Certificación Invima: 2023-45678 | Licencia de funcionamiento: 12345-SDS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    menuToggle.innerHTML = navMenu.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
+            }
+            
+            // Cerrar menú al hacer clic en un enlace
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Animaciones al hacer scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => observer.observe(el));
+            
+            // Formulario de cita
+            const formCita = document.getElementById('form-cita');
+            if (formCita) {
+                formCita.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validación básica
+                    const nombre = document.getElementById('nombre').value;
+                    const telefono = document.getElementById('telefono').value;
+                    const sintomas = document.getElementById('sintomas').value;
+                    
+                    if (nombre && telefono && sintomas) {
+                        // Simulación de envío
+                        alert('¡Gracias por su solicitud, ' + nombre + '!\n\nUn especialista se comunicará con usted en las próximas 24 horas al teléfono ' + telefono + ' para programar su evaluación sin costo.\n\nMientras tanto, si sus síntomas empeoran, llame a nuestra línea de emergencias: +57 310 987 6543');
+                        
+                        // Limpiar formulario
+                        formCita.reset();
+                    } else {
+                        alert('Por favor complete todos los campos obligatorios (*)');
+                    }
+                });
+            }
+            
+            // Formulario newsletter
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const email = emailInput.value.trim();
+                    
+                    if (email) {
+                        alert('¡Gracias por suscribirse! Recibirá nuestro boletín informativo en ' + email);
+                        emailInput.value = '';
+                    }
+                });
+            }
+            
+            // Efecto de scroll suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Cambiar estilo del header al hacer scroll
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+                }
+            });
+        });
+    </script>
