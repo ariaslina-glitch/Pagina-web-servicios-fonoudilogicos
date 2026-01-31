@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,6 +24,7 @@
             --gris-borde: #e2e8f0;
             --dorado-accent: #d4af37;
             --rojo-urgencia: #e53e3e;
+            --naranja-alerta: #ed8936;
             --sombra: 0 4px 20px rgba(0, 0, 0, 0.08);
             --sombra-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
             --transicion: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -176,6 +178,13 @@
             font-weight: 600;
             margin-top: 80px;
             box-shadow: 0 2px 10px rgba(229, 62, 62, 0.2);
+            animation: pulseBanner 2s infinite;
+        }
+
+        @keyframes pulseBanner {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; }
+            100% { opacity: 1; }
         }
 
         .emergency-banner i {
@@ -260,11 +269,42 @@
             cursor: pointer;
             font-size: 1.1rem;
             box-shadow: 0 6px 20px rgba(74, 155, 216, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 25px rgba(74, 155, 216, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-primary:hover::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
         }
 
         .hero-image {
@@ -274,6 +314,12 @@
             overflow: hidden;
             box-shadow: var(--sombra-hover);
             border: 8px solid white;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: var(--transicion);
+        }
+
+        .hero-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
         }
 
         .hero-image img {
@@ -298,6 +344,18 @@
             border-left: 8px solid var(--rojo-urgencia);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .alerta-container::before {
@@ -332,6 +390,8 @@
             border-radius: 10px;
             transition: var(--transicion);
             border: 1px solid var(--gris-borde);
+            position: relative;
+            overflow: hidden;
         }
 
         .sintoma-item:hover {
@@ -340,10 +400,15 @@
             box-shadow: var(--sombra);
         }
 
+        .sintoma-item:hover .sintoma-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
         .sintoma-icon {
             color: var(--rojo-urgencia);
             font-size: 1.8rem;
             min-width: 40px;
+            transition: var(--transicion);
         }
 
         .sintoma-text h3 {
@@ -358,12 +423,34 @@
             padding: 30px;
             background: linear-gradient(135deg, var(--azul-suave), var(--verde-claro));
             border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .llamado-accion::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
         }
 
         .llamado-accion h3 {
             color: var(--azul-profesional);
             font-size: 1.8rem;
             margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Sección Servicios */
@@ -394,7 +481,7 @@
 
         .servicios-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 35px;
             margin-top: 50px;
         }
@@ -407,10 +494,11 @@
             transition: var(--transicion);
             border: 1px solid var(--gris-borde);
             height: 100%;
+            position: relative;
         }
 
         .servicio-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: var(--sombra-hover);
             border-color: var(--azul-claro);
         }
@@ -418,6 +506,18 @@
         .servicio-img {
             height: 220px;
             overflow: hidden;
+            position: relative;
+        }
+
+        .servicio-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3));
+            z-index: 1;
         }
 
         .servicio-img img {
@@ -428,17 +528,36 @@
         }
 
         .servicio-card:hover .servicio-img img {
-            transform: scale(1.05);
+            transform: scale(1.1);
+        }
+
+        .servicio-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--verde-esperanza);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
         }
 
         .servicio-content {
             padding: 30px;
+            position: relative;
         }
 
         .servicio-icon {
             font-size: 2.5rem;
             color: var(--azul-claro);
             margin-bottom: 20px;
+            transition: var(--transicion);
+        }
+
+        .servicio-card:hover .servicio-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .servicio-content h3 {
@@ -462,6 +581,12 @@
             padding: 8px 0;
             border-bottom: 1px solid var(--gris-borde);
             color: var(--gris-profesional);
+            transition: var(--transicion);
+        }
+
+        .servicio-beneficios li:hover {
+            padding-left: 10px;
+            color: var(--azul-profesional);
         }
 
         .servicio-beneficios li:last-child {
@@ -471,6 +596,26 @@
         .servicio-beneficios li i {
             color: var(--verde-esperanza);
             margin-right: 10px;
+        }
+
+        .btn-servicio {
+            display: inline-block;
+            background: var(--azul-suave);
+            color: var(--azul-profesional);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transicion);
+            border: 2px solid transparent;
+            margin-top: 15px;
+        }
+
+        .btn-servicio:hover {
+            background: var(--azul-profesional);
+            color: white;
+            border-color: var(--azul-claro);
+            transform: translateY(-3px);
         }
 
         /* Sección Especialistas */
@@ -494,6 +639,7 @@
             transition: var(--transicion);
             text-align: center;
             border: 1px solid var(--gris-borde);
+            position: relative;
         }
 
         .especialista-card:hover {
@@ -522,6 +668,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: var(--transicion);
+        }
+
+        .especialista-card:hover .especialista-img img {
+            transform: scale(1.05);
         }
 
         .especialista-content {
@@ -557,6 +708,179 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
+            transition: var(--transicion);
+        }
+
+        .especialista-card:hover .credito-badge {
+            background: var(--azul-profesional);
+            color: white;
+        }
+
+        /* Galería de Imágenes */
+        .galeria {
+            padding: 100px 0;
+            background: var(--blanco-puro);
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .galeria-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .galeria-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transicion);
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeria-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: var(--transicion);
+        }
+
+        .galeria-item:hover .galeria-overlay {
+            transform: translateY(0);
+        }
+
+        /* Sección Estadísticas */
+        .estadisticas {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--azul-profesional), var(--verde-esperanza));
+            color: white;
+        }
+
+        .estadisticas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .estadistica-item {
+            padding: 30px;
+            position: relative;
+        }
+
+        .estadistica-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .estadistica-item:last-child::after {
+            display: none;
+        }
+
+        .estadistica-numero {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', serif;
+        }
+
+        .estadistica-texto {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Sección Proceso */
+        .proceso {
+            padding: 100px 0;
+            background: var(--blanco-roto);
+        }
+
+        .proceso-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto 0;
+        }
+
+        .proceso-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: var(--azul-claro);
+            transform: translateX(-50%);
+        }
+
+        .proceso-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .proceso-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .proceso-paso {
+            width: 45%;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--sombra);
+            position: relative;
+            transition: var(--transicion);
+        }
+
+        .proceso-paso:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .proceso-numero {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--azul-profesional);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
         /* Sección Testimonios */
@@ -569,6 +893,12 @@
             max-width: 900px;
             margin: 50px auto 0;
             position: relative;
+            overflow: hidden;
+        }
+
+        .testimonios-container {
+            display: flex;
+            transition: transform 0.5s ease;
         }
 
         .testimonio-card {
@@ -579,6 +909,7 @@
             border: 1px solid var(--gris-borde);
             margin: 20px;
             position: relative;
+            min-width: 100%;
         }
 
         .testimonio-card::before {
@@ -630,6 +961,34 @@
             font-size: 0.9rem;
         }
 
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .slider-btn {
+            background: white;
+            border: 2px solid var(--azul-claro);
+            color: var(--azul-claro);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transicion);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .slider-btn:hover {
+            background: var(--azul-claro);
+            color: white;
+            transform: scale(1.1);
+        }
+
         /* Sección Certificaciones y Seguros */
         .certificaciones {
             padding: 80px 0;
@@ -653,17 +1012,34 @@
             text-align: center;
             transition: var(--transicion);
             border: 1px solid var(--gris-borde);
+            position: relative;
+            overflow: hidden;
         }
 
         .certificacion-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: var(--sombra-hover);
+        }
+
+        .certificacion-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--verde-esperanza));
         }
 
         .certificacion-icon {
             font-size: 2.5rem;
             color: var(--verde-esperanza);
             margin-bottom: 15px;
+            transition: var(--transicion);
+        }
+
+        .certificacion-item:hover .certificacion-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         /* Sección Contacto */
@@ -706,6 +1082,11 @@
             font-size: 1.8rem;
             color: var(--azul-claro);
             min-width: 40px;
+            transition: var(--transicion);
+        }
+
+        .contacto-item:hover .contacto-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .contacto-form {
@@ -713,6 +1094,18 @@
             padding: 40px;
             border-radius: 15px;
             box-shadow: var(--sombra-hover);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contacto-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--verde-esperanza));
         }
 
         .form-group {
@@ -814,11 +1207,31 @@
             text-decoration: none;
             transition: var(--transicion);
             font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .social-icons a:hover {
             background: var(--azul-claro);
             transform: translateY(-5px);
+        }
+
+        .social-icons a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0);
+            transition: var(--transicion);
+            border-radius: 50%;
+        }
+
+        .social-icons a:hover::after {
+            transform: scale(1.5);
+            opacity: 0;
         }
 
         .footer-links h3, .footer-servicios h3, .footer-newsletter h3 {
@@ -852,11 +1265,27 @@
             text-decoration: none;
             transition: var(--transicion);
             display: inline-block;
+            position: relative;
+            padding-left: 0;
         }
 
         .footer-links a:hover, .footer-servicios a:hover {
             color: white;
             padding-left: 10px;
+        }
+
+        .footer-links a::before, .footer-servicios a::before {
+            content: '›';
+            position: absolute;
+            left: -10px;
+            opacity: 0;
+            transition: var(--transicion);
+            color: var(--azul-claro);
+        }
+
+        .footer-links a:hover::before, .footer-servicios a:hover::before {
+            left: 0;
+            opacity: 1;
         }
 
         .newsletter-form {
@@ -911,11 +1340,19 @@
             z-index: 999;
             transition: var(--transicion);
             border: 3px solid white;
+            animation: floatWhatsapp 3s ease-in-out infinite;
+        }
+
+        @keyframes floatWhatsapp {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.15);
+            transform: scale(1.15) rotate(5deg);
             box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+            animation: none;
         }
 
         /* Botón emergencia */
@@ -937,11 +1374,51 @@
             z-index: 999;
             transition: var(--transicion);
             border: 3px solid white;
+            animation: pulseEmergency 2s infinite;
+        }
+
+        @keyframes pulseEmergency {
+            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(229, 62, 62, 0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 8px 30px rgba(229, 62, 62, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 8px 25px rgba(229, 62, 62, 0.4); }
         }
 
         .emergencia-float:hover {
+            animation: none;
             transform: scale(1.15);
             box-shadow: 0 12px 30px rgba(229, 62, 62, 0.5);
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 180px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--azul-profesional);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transicion);
+            z-index: 998;
+            box-shadow: 0 4px 15px rgba(26, 107, 156, 0.3);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--azul-claro);
+            transform: translateY(-5px);
         }
 
         /* Animaciones */
@@ -954,6 +1431,60 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Modal para servicios */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gris-claro);
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .modal-close:hover {
+            color: var(--rojo-urgencia);
         }
 
         /* Responsive Design */
@@ -974,6 +1505,29 @@
             
             .hero-image {
                 max-width: 700px;
+                transform: none;
+            }
+            
+            .hero-image:hover {
+                transform: none;
+            }
+            
+            .proceso-timeline::before {
+                left: 30px;
+            }
+            
+            .proceso-item, .proceso-item:nth-child(odd) {
+                flex-direction: row;
+            }
+            
+            .proceso-paso {
+                width: calc(100% - 80px);
+                margin-left: 80px;
+            }
+            
+            .proceso-numero {
+                left: 30px;
+                transform: translateX(-50%);
             }
         }
 
@@ -1016,7 +1570,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .servicios-grid, .especialistas-grid {
+            .servicios-grid, .especialistas-grid, .galeria-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -1026,6 +1580,26 @@
             
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+            
+            .estadisticas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .estadistica-item::after {
+                display: none;
+            }
+            
+            .emergencia-float, .whatsapp-float, .scroll-top {
+                right: 20px;
+            }
+            
+            .emergencia-float {
+                bottom: 100px;
+            }
+            
+            .scroll-top {
+                bottom: 170px;
             }
         }
 
@@ -1042,13 +1616,16 @@
                 font-size: 1.8rem;
             }
             
-            .emergencia-float {
-                bottom: 110px;
-                right: 20px;
+            .estadisticas-grid {
+                grid-template-columns: 1fr;
             }
             
-            .whatsapp-float {
-                right: 20px;
+            .estadistica-numero {
+                font-size: 2.8rem;
+            }
+            
+            .modal-content {
+                padding: 20px;
             }
         }
     </style>
@@ -1064,6 +1641,19 @@
         <i class="fas fa-phone-alt"></i>
     </a>
 
+    <!-- Scroll to Top -->
+    <a href="#" class="scroll-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Modal para servicios -->
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -1077,6 +1667,8 @@
                     <li><a href="#sintomas">Síntomas</a></li>
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#especialistas">Especialistas</a></li>
+                    <li><a href="#galeria">Instalaciones</a></li>
+                    <li><a href="#proceso">Proceso</a></li>
                     <li><a href="#testimonios">Testimonios</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
@@ -1101,7 +1693,10 @@
                 <h1>Recupere su <span>equilibrio y calidad de vida</span></h1>
                 <div class="hero-subtitle">Especialistas en Rehabilitación Vestibular y Fonoaudiología</div>
                 <p>En Vestibular Center entendemos el impacto que los trastornos del equilibrio tienen en su vida diaria. Nuestro equipo multidisciplinario de especialistas está dedicado a proporcionar soluciones personalizadas basadas en evidencia científica para tratar vértigo, mareos y desequilibrios.</p>
-                <a href="#contacto" class="btn-primary">Solicitar Evaluación sin Costo</a>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#contacto" class="btn-primary">Solicitar Evaluación Gratuita</a>
+                    <a href="#servicios" class="btn-servicio">Ver Servicios</a>
+                </div>
             </div>
             <div class="hero-image">
                 <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Especialista en rehabilitación vestibular">
@@ -1117,7 +1712,7 @@
                 <p class="fade-in">Si siente alguno de los siguientes síntomas recurrentemente, podría estar sufriendo de un trastorno vestibular que requiere atención especializada:</p>
                 
                 <div class="sintomas-lista">
-                    <div class="sintoma-item fade-in">
+                    <div class="sintoma-item fade-in" onclick="scrollToSection('contacto')" style="cursor: pointer;">
                         <div class="sintoma-icon">
                             <i class="fas fa-dizzy"></i>
                         </div>
@@ -1126,7 +1721,7 @@
                             <p>Mareos que aparecen sin motivo aparente, incluso estando en reposo.</p>
                         </div>
                     </div>
-                    <div class="sintoma-item fade-in">
+                    <div class="sintoma-item fade-in" onclick="scrollToSection('contacto')" style="cursor: pointer;">
                         <div class="sintoma-icon">
                             <i class="fas fa-walking"></i>
                         </div>
@@ -1135,7 +1730,7 @@
                             <p>Se siente como si estuviera caminando sobre algodones o en un barco.</p>
                         </div>
                     </div>
-                    <div class="sintoma-item fade-in">
+                    <div class="sintoma-item fade-in" onclick="scrollToSection('contacto')" style="cursor: pointer;">
                         <div class="sintoma-icon">
                             <i class="fas fa-sync-alt"></i>
                         </div>
@@ -1155,6 +1750,30 @@
         </div>
     </section>
 
+    <!-- Sección Estadísticas -->
+    <section class="estadisticas">
+        <div class="container">
+            <div class="estadisticas-grid">
+                <div class="estadistica-item fade-in">
+                    <div class="estadistica-numero" data-count="95">0%</div>
+                    <div class="estadistica-texto">Tasa de Éxito en Tratamientos</div>
+                </div>
+                <div class="estadistica-item fade-in">
+                    <div class="estadistica-numero" data-count="1500">0</div>
+                    <div class="estadistica-texto">Pacientes Recuperados</div>
+                </div>
+                <div class="estadistica-item fade-in">
+                    <div class="estadistica-numero" data-count="15">0</div>
+                    <div class="estadistica-texto">Años de Experiencia</div>
+                </div>
+                <div class="estadistica-item fade-in">
+                    <div class="estadistica-numero" data-count="24">0/7</div>
+                    <div class="estadistica-texto">Atención de Urgencias</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sección Servicios -->
     <section class="servicios" id="servicios">
         <div class="container">
@@ -1164,9 +1783,10 @@
             </p>
             
             <div class="servicios-grid">
-                <div class="servicio-card fade-in">
+                <div class="servicio-card fade-in" onclick="openServiceModal('rehabilitacion')" style="cursor: pointer;">
                     <div class="servicio-img">
-                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rehabilitación Vestibular">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rehabilitación Vestibular">
+                        <div class="servicio-tag">MÁS SOLICITADO</div>
                     </div>
                     <div class="servicio-content">
                         <div class="servicio-icon">
@@ -1181,12 +1801,14 @@
                             <li><i class="fas fa-check-circle"></i> Ejercicios personalizados de equilibrio</li>
                             <li><i class="fas fa-check-circle"></i> Seguimiento continuo del progreso</li>
                         </ul>
+                        
+                        <a href="javascript:void(0)" class="btn-servicio" onclick="openServiceModal('rehabilitacion')">Ver detalles completos</a>
                     </div>
                 </div>
                 
-                <div class="servicio-card fade-in">
+                <div class="servicio-card fade-in" onclick="openServiceModal('fonoaudiologia')" style="cursor: pointer;">
                     <div class="servicio-img">
-                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fonoaudiología">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fonoaudiología">
                     </div>
                     <div class="servicio-content">
                         <div class="servicio-icon">
@@ -1201,12 +1823,14 @@
                             <li><i class="fas fa-check-circle"></i> Tratamiento de trastornos de deglución</li>
                             <li><i class="fas fa-check-circle"></i> Terapia para afasia y disartria</li>
                         </ul>
+                        
+                        <a href="javascript:void(0)" class="btn-servicio" onclick="openServiceModal('fonoaudiologia')">Ver detalles completos</a>
                     </div>
                 </div>
                 
-                <div class="servicio-card fade-in">
+                <div class="servicio-card fade-in" onclick="openServiceModal('evaluacion')" style="cursor: pointer;">
                     <div class="servicio-img">
-                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Evaluación Integral">
+                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Evaluación Integral">
                     </div>
                     <div class="servicio-content">
                         <div class="servicio-icon">
@@ -1221,6 +1845,104 @@
                             <li><i class="fas fa-check-circle"></i> Audiometría completa</li>
                             <li><i class="fas fa-check-circle"></i> Análisis computarizado de la marcha</li>
                         </ul>
+                        
+                        <a href="javascript:void(0)" class="btn-servicio" onclick="openServiceModal('evaluacion')">Ver detalles completos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Galería -->
+    <section class="galeria" id="galeria">
+        <div class="container">
+            <h2 class="section-title">Nuestras Instalaciones</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Conozca nuestras modernas instalaciones equipadas con tecnología de última generación para su diagnóstico y tratamiento.
+            </p>
+            
+            <div class="galeria-grid">
+                <div class="galeria-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Consultorio de evaluación">
+                    <div class="galeria-overlay">
+                        <h4>Consultorio de Evaluación</h4>
+                        <p>Equipo especializado para diagnóstico</p>
+                    </div>
+                </div>
+                
+                <div class="galeria-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sala de terapia">
+                    <div class="galeria-overlay">
+                        <h4>Sala de Terapia Vestibular</h4>
+                        <p>Espacio para ejercicios de equilibrio</p>
+                    </div>
+                </div>
+                
+                <div class="galeria-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Equipo de audiometría">
+                    <div class="galeria-overlay">
+                        <h4>Sala de Audiometría</h4>
+                        <p>Evaluación auditiva completa</p>
+                    </div>
+                </div>
+                
+                <div class="galeria-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Área de espera">
+                    <div class="galeria-overlay">
+                        <h4>Área de Espera</h4>
+                        <p>Comodidad para nuestros pacientes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Proceso -->
+    <section class="proceso" id="proceso">
+        <div class="container">
+            <h2 class="section-title">Nuestro Proceso de Atención</h2>
+            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
+                Seguimos un protocolo estandarizado para garantizar la mejor atención y resultados óptimos en cada caso.
+            </p>
+            
+            <div class="proceso-timeline">
+                <div class="proceso-item fade-in">
+                    <div class="proceso-paso">
+                        <div class="proceso-numero">1</div>
+                        <h3>Evaluación Inicial</h3>
+                        <p>Historia clínica detallada y evaluación de síntomas. Pruebas básicas de equilibrio y coordinación.</p>
+                    </div>
+                </div>
+                
+                <div class="proceso-item fade-in">
+                    <div class="proceso-paso">
+                        <div class="proceso-numero">2</div>
+                        <h3>Diagnóstico Especializado</h3>
+                        <p>Pruebas vestibulares avanzadas y análisis computarizado para identificar la causa exacta.</p>
+                    </div>
+                </div>
+                
+                <div class="proceso-item fade-in">
+                    <div class="proceso-paso">
+                        <div class="proceso-numero">3</div>
+                        <h3>Plan de Tratamiento</h3>
+                        <p>Diseño personalizado de terapia según diagnóstico. Explicación detallada al paciente.</p>
+                    </div>
+                </div>
+                
+                <div class="proceso-item fade-in">
+                    <div class="proceso-paso">
+                        <div class="proceso-numero">4</div>
+                        <h3>Sesión de Terapia</h3>
+                        <p>Implementación del tratamiento con seguimiento constante. Ajustes según evolución.</p>
+                    </div>
+                </div>
+                
+                <div class="proceso-item fade-in">
+                    <div class="proceso-paso">
+                        <div class="proceso-numero">5</div>
+                        <h3>Seguimiento y Alta</h3>
+                        <p>Evaluación de resultados y recomendaciones para mantenimiento. Alta médica cuando corresponda.</p>
                     </div>
                 </div>
             </div>
@@ -1247,6 +1969,7 @@
                         <div class="especialista-creditos">
                             <span class="credito-badge">Ph.D. en Neurociencias</span>
                             <span class="credito-badge">Certificación VRT</span>
+                            <span class="credito-badge">20+ años experiencia</span>
                         </div>
                     </div>
                 </div>
@@ -1262,6 +1985,7 @@
                         <div class="especialista-creditos">
                             <span class="credito-badge">M.Sc. Audiología</span>
                             <span class="credito-badge">Certificado ENTs</span>
+                            <span class="credito-badge">Investigador</span>
                         </div>
                     </div>
                 </div>
@@ -1277,52 +2001,9 @@
                         <div class="especialista-creditos">
                             <span class="credito-badge">Especialización Lenguaje</span>
                             <span class="credito-badge">Terapia Neurológica</span>
+                            <span class="credito-badge">Pediatría</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Certificaciones -->
-    <section class="certificaciones">
-        <div class="container">
-            <h2 class="section-title">Certificaciones y Convenios</h2>
-            <p class="text-center fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">
-                Nuestra clínica cuenta con las certificaciones y convenios necesarios para garantizar la máxima calidad en nuestros servicios.
-            </p>
-            
-            <div class="certificaciones-grid">
-                <div class="certificacion-item fade-in">
-                    <div class="certificacion-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4>Certificación ISO 9001</h4>
-                    <p>Calidad en procesos médicos</p>
-                </div>
-                
-                <div class="certificacion-item fade-in">
-                    <div class="certificacion-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h4>Convenio con Aseguradoras</h4>
-                    <p>Coomeva, Sura, Sanitas, etc.</p>
-                </div>
-                
-                <div class="certificacion-item fade-in">
-                    <div class="certificacion-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h4>Afiliación Internacional</h4>
-                    <p>Barany Society Member</p>
-                </div>
-                
-                <div class="certificacion-item fade-in">
-                    <div class="certificacion-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h4>Premio a la Excelencia</h4>
-                    <p>Mejor Clínica 2023</p>
                 </div>
             </div>
         </div>
@@ -1337,17 +2018,50 @@
             </p>
             
             <div class="testimonios-slider">
-                <div class="testimonio-card fade-in">
-                    <p class="testimonio-texto">"Sufrí de vértigo por más de 2 años. Había visitado varios médicos sin resultados. En Vestibular Center me diagnosticaron VPPB correctamente y en solo 3 sesiones de terapia vestibular, mi vértigo desapareció. Hoy puedo hacer mi vida normal sin miedo a los mareos."</p>
-                    <div class="testimonio-cliente">
-                        <div class="cliente-img">
-                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Martínez">
-                        </div>
-                        <div class="cliente-info">
-                            <h4>Laura Martínez</h4>
-                            <p>Paciente con VPPB - Recuperada en 2023</p>
+                <div class="testimonios-container" id="testimoniosContainer">
+                    <div class="testimonio-card">
+                        <p class="testimonio-texto">"Sufrí de vértigo por más de 2 años. Había visitado varios médicos sin resultados. En Vestibular Center me diagnosticaron VPPB correctamente y en solo 3 sesiones de terapia vestibular, mi vértigo desapareció. Hoy puedo hacer mi vida normal sin miedo a los mareos."</p>
+                        <div class="testimonio-cliente">
+                            <div class="cliente-img">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Laura Martínez">
+                            </div>
+                            <div class="cliente-info">
+                                <h4>Laura Martínez</h4>
+                                <p>Paciente con VPPB - Recuperada en 2023</p>
+                            </div>
                         </div>
                     </div>
+                    
+                    <div class="testimonio-card">
+                        <p class="testimonio-texto">"Después de un accidente cerebrovascular, perdí capacidad para hablar claramente. La Lic. Ana Gómez trabajó conmigo durante 6 meses y hoy puedo comunicarme nuevamente con mi familia. Su paciencia y profesionalismo hicieron la diferencia."</p>
+                        <div class="testimonio-cliente">
+                            <div class="cliente-img">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Carlos Gutiérrez">
+                            </div>
+                            <div class="cliente-info">
+                                <h4>Carlos Gutiérrez</h4>
+                                <p>Rehabilitación post-ACV - 2022</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonio-card">
+                        <p class="testimonio-texto">"Mi hijo de 5 años tenía problemas de lenguaje. Después de 8 meses de terapia, ahora se comunica perfectamente. El equipo de Vestibular Center no solo ayudó a mi hijo, sino que nos enseñó cómo apoyarlo en casa."</p>
+                        <div class="testimonio-cliente">
+                            <div class="cliente-img">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sofía Ramírez">
+                            </div>
+                            <div class="cliente-info">
+                                <h4>Sofía Ramírez</h4>
+                                <p>Madre de paciente pediátrico - 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>
@@ -1422,13 +2136,19 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="sintomas">Describa sus síntomas principales *</label>
-                            <textarea id="sintomas" class="form-control" rows="4" placeholder="Ej: Mareos al levantarme, sensación de giro, inestabilidad..." required></textarea>
+                            <label for="servicio">Servicio de interés</label>
+                            <select id="servicio" class="form-control">
+                                <option value="">Seleccione un servicio</option>
+                                <option value="rehabilitacion">Rehabilitación Vestibular</option>
+                                <option value="fonoaudiologia">Fonoaudiología</option>
+                                <option value="evaluacion">Evaluación Integral</option>
+                                <option value="terapia">Terapia del Lenguaje</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="fecha">Fecha preferida para la cita</label>
-                            <input type="date" id="fecha" class="form-control">
+                            <label for="sintomas">Describa sus síntomas principales *</label>
+                            <textarea id="sintomas" class="form-control" rows="4" placeholder="Ej: Mareos al levantarme, sensación de giro, inestabilidad..." required></textarea>
                         </div>
                         
                         <button type="submit" class="btn-primary" style="width: 100%; padding: 18px; font-size: 1.1rem;">
@@ -1494,9 +2214,9 @@
                 <div class="footer-servicios">
                     <h3>Servicios</h3>
                     <ul>
-                        <li><a href="#servicios">Rehabilitación Vestibular</a></li>
-                        <li><a href="#servicios">Fonoaudiología</a></li>
-                        <li><a href="#servicios">Evaluación del Equilibrio</a></li>
+                        <li><a href="javascript:void(0)" onclick="openServiceModal('rehabilitacion')">Rehabilitación Vestibular</a></li>
+                        <li><a href="javascript:void(0)" onclick="openServiceModal('fonoaudiologia')">Fonoaudiología</a></li>
+                        <li><a href="javascript:void(0)" onclick="openServiceModal('evaluacion')">Evaluación del Equilibrio</a></li>
                         <li><a href="#servicios">Terapia del Lenguaje</a></li>
                         <li><a href="#servicios">Audiología</a></li>
                         <li><a href="#servicios">Consultas Especializadas</a></li>
@@ -1521,6 +2241,177 @@
     </footer>
 
     <script>
+        // Datos de servicios para el modal
+        const serviciosData = {
+            'rehabilitacion': {
+                title: 'Rehabilitación Vestibular Completa',
+                image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'La rehabilitación vestibular es una terapia especializada diseñada para tratar los trastornos del equilibrio y reducir los síntomas de vértigo, mareo y desequilibrio.',
+                details: `
+                    <h3>¿Qué es la Rehabilitación Vestibular?</h3>
+                    <p>Es un programa de ejercicios personalizados que ayuda al cerebro a compensar los problemas del sistema vestibular, responsable del equilibrio.</p>
+                    
+                    <h3>Condiciones que tratamos:</h3>
+                    <ul>
+                        <li><strong>Vértigo Posicional Paroxístico Benigno (VPPB):</strong> La causa más común de vértigo, tratable con maniobras específicas.</li>
+                        <li><strong>Neuritis Vestibular:</strong> Inflamación del nervio vestibular que causa vértigo severo.</li>
+                        <li><strong>Enfermedad de Ménière:</strong> Trastorno del oído interno que causa episodios de vértigo, tinnitus y pérdida auditiva.</li>
+                        <li><strong>Mareo crónico:</strong> Sensación persistente de inestabilidad.</li>
+                        <li><strong>Desequilibrio postural:</strong> Problemas para mantenerse de pie o caminar.</li>
+                    </ul>
+                    
+                    <h3>Nuestro Proceso:</h3>
+                    <ol>
+                        <li><strong>Evaluación inicial:</strong> Historia clínica detallada y pruebas de función vestibular.</li>
+                        <li><strong>Diagnóstico preciso:</strong> Identificación de la causa específica de sus síntomas.</li>
+                        <li><strong>Plan personalizado:</strong> Diseño de ejercicios adaptados a su condición.</li>
+                        <li><strong>Sesiones de terapia:</strong> Aplicación del tratamiento con supervisión especializada.</li>
+                        <li><strong>Seguimiento:</strong> Evaluación continua y ajustes según su progreso.</li>
+                    </ol>
+                    
+                    <h3>Tecnología que utilizamos:</h3>
+                    <ul>
+                        <li>Videonistagmografía (VNG) para evaluar movimientos oculares</li>
+                        <li>Posturografía computarizada para analizar el equilibrio</li>
+                        <li>Sistema de realidad virtual para terapia avanzada</li>
+                        <li>Equipo de audiometría de última generación</li>
+                    </ul>
+                    
+                    <h3>Resultados esperados:</h3>
+                    <ul>
+                        <li>Reducción del 80-90% en síntomas de vértigo</li>
+                        <li>Mejora significativa en equilibrio y coordinación</li>
+                        <li>Retorno a actividades normales en 4-8 semanas</li>
+                        <li>Prevención de recaídas con ejercicios de mantenimiento</li>
+                    </ul>
+                `,
+                cta: 'Agendar Evaluación para Rehabilitación Vestibular'
+            },
+            'fonoaudiologia': {
+                title: 'Fonoaudiología Especializada',
+                image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'Servicios integrales de fonoaudiología para todas las edades, enfocados en trastornos de la comunicación, voz, habla, lenguaje y deglución.',
+                details: `
+                    <h3>Áreas de Especialización:</h3>
+                    
+                    <h4>1. Trastornos del Lenguaje:</h4>
+                    <ul>
+                        <li><strong>Niños:</strong> Retraso en el desarrollo del lenguaje, trastorno específico del lenguaje, dificultades de articulación.</li>
+                        <li><strong>Adultos:</strong> Afasia (pérdida del lenguaje por daño cerebral), disartria (dificultad para articular palabras).</li>
+                    </ul>
+                    
+                    <h4>2. Trastornos de la Voz:</h4>
+                    <ul>
+                        <li>Disfonía (ronquera, fatiga vocal)</li>
+                        <li>Nódulos y pólipos en las cuerdas vocales</li>
+                        <li>Rehabilitación vocal para profesionales (docentes, cantantes, locutores)</li>
+                    </ul>
+                    
+                    <h4>3. Trastornos de la Deglución:</h4>
+                    <ul>
+                        <li>Disfagia (dificultad para tragar)</li>
+                        <li>Rehabilitación post-cirugía o post-ACV</li>
+                        <li>Adaptación de texturas alimenticias</li>
+                    </ul>
+                    
+                    <h4>4. Trastornos del Habla:</h4>
+                    <ul>
+                        <li>Dislalia (dificultad para pronunciar sonidos)</li>
+                        <li>Tartamudez</li>
+                        <li>Apraxia del habla</li>
+                    </ul>
+                    
+                    <h3>Nuestro Enfoque:</h3>
+                    <p>Utilizamos técnicas basadas en evidencia científica y adaptamos cada terapia a las necesidades individuales del paciente:</p>
+                    <ul>
+                        <li><strong>Evaluación completa:</strong> Análisis detallado de las capacidades comunicativas</li>
+                        <li><strong>Objetivos personalizados:</strong> Metas claras y alcanzables</li>
+                        <li><strong>Terapia individualizada:</strong> Sesiones uno a uno</li>
+                        <li><strong>Involucramiento familiar:</strong> Entrenamiento para continuar el trabajo en casa</li>
+                        <li><strong>Tecnología de apoyo:</strong> Uso de software especializado y aplicaciones terapéuticas</li>
+                    </ul>
+                    
+                    <h3>Poblaciones que atendemos:</h3>
+                    <ul>
+                        <li><strong>Pediatría:</strong> Desde los primeros meses de vida hasta la adolescencia</li>
+                        <li><strong>Adultos:</strong> Rehabilitación post-ACV, Parkinson, Esclerosis Múltiple</li>
+                        <li><strong>Personas mayores:</strong> Deterioro cognitivo relacionado con la edad</li>
+                        <li><strong>Profesionales de la voz:</strong> Cantantes, actores, docentes, locutores</li>
+                    </ul>
+                `,
+                cta: 'Consultar por Servicios de Fonoaudiología'
+            },
+            'evaluacion': {
+                title: 'Evaluación Integral del Equilibrio',
+                image: 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'Diagnóstico avanzado mediante tecnología de punta para identificar con precisión las causas de sus problemas de equilibrio.',
+                details: `
+                    <h3>Pruebas de Diagnóstico que Realizamos:</h3>
+                    
+                    <h4>1. Videonistagmografía (VNG):</h4>
+                    <p>La prueba más completa para evaluar la función vestibular. Incluye:</p>
+                    <ul>
+                        <li><strong>Prueba de seguimiento ocular:</strong> Evalúa movimientos oculares suaves</li>
+                        <li><strong>Prueba de sacadas:</strong> Mide movimientos oculares rápidos</li>
+                        <li><strong>Prueba optocinética:</strong> Analiza respuesta a estímulos visuales en movimiento</li>
+                        <li><strong>Prueba posicional:</strong> Detecta VPPB y otros vértigos posicionales</li>
+                        <li><strong>Prueba calórica:</strong> Evalúa cada laberinto por separado</li>
+                    </ul>
+                    
+                    <h4>2. Posturografía Computarizada:</h4>
+                    <p>Análisis objetivo del equilibrio estático y dinámico:</p>
+                    <ul>
+                        <li><strong>Prueba de organización sensorial:</strong> Evalúa cómo utiliza la información visual, vestibular y propioceptiva</li>
+                        <li><strong>Prueba de límites de estabilidad:</strong> Mide hasta dónde puede inclinarse sin perder el equilibrio</li>
+                        <li><strong>Prueba de adaptación:</strong> Analiza capacidad de ajuste a superficies inestables</li>
+                    </ul>
+                    
+                    <h4>3. Audiometría Completa:</h4>
+                    <ul>
+                        <li><strong>Audiometría tonal:</strong> Evalúa umbrales auditivos en diferentes frecuencias</li>
+                        <li><strong>Audiometría vocal:</strong> Mide capacidad para entender el habla</li>
+                        <li><strong>Impedanciometría:</strong> Evalúa función del oído medio</li>
+                        <li><strong>Potenciales evocados auditivos:</strong> Analiza vías auditivas del tronco cerebral</li>
+                    </ul>
+                    
+                    <h4>4. Análisis Computarizado de la Marcha:</h4>
+                    <ul>
+                        <li>Evaluación de patrones de caminata</li>
+                        <li>Análisis de distribución del peso</li>
+                        <li>Detección de asimetrías</li>
+                        <li>Evaluación del riesgo de caídas</li>
+                    </ul>
+                    
+                    <h3>Equipamiento de Última Generación:</h3>
+                    <ul>
+                        <li>Sistema VNG con gafas infrarrojas</li>
+                        <li>Plataforma de fuerza computarizada</li>
+                        <li>Audiómetro clínico de dos canales</li>
+                        <li>Sala audiométrica insonorizada</li>
+                        <li>Sistema de análisis de movimiento 3D</li>
+                    </ul>
+                    
+                    <h3>Duración y Preparación:</h3>
+                    <ul>
+                        <li><strong>Tiempo total:</strong> 2-3 horas aproximadamente</li>
+                        <li><strong>Preparación:</strong> No tomar medicamentos para el vértigo 48 horas antes (consultar)</li>
+                        <li><strong>Vestimenta:</strong> Ropa cómoda y zapatos bajos</li>
+                        <li><strong>Acompañante:</strong> Recomendable para después de las pruebas</li>
+                    </ul>
+                    
+                    <h3>Resultados e Interpretación:</h3>
+                    <p>Todas las pruebas son interpretadas por nuestros especialistas y se entrega un informe detallado con:</p>
+                    <ul>
+                        <li>Diagnóstico preciso de la condición</li>
+                        <li>Recomendaciones específicas de tratamiento</li>
+                        <li>Plan de terapia personalizado</li>
+                        <li>Pronóstico y tiempo estimado de recuperación</li>
+                    </ul>
+                `,
+                cta: 'Solicitar Evaluación Completa del Equilibrio'
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // Menú móvil
             const menuToggle = document.querySelector('.menu-toggle');
@@ -1544,6 +2435,24 @@
                 });
             });
             
+            // Scroll to Top
+            const scrollTop = document.querySelector('.scroll-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollTop.classList.add('active');
+                } else {
+                    scrollTop.classList.remove('active');
+                }
+            });
+            
+            scrollTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
             // Animaciones al hacer scroll
             const fadeElements = document.querySelectorAll('.fade-in');
             const observer = new IntersectionObserver((entries) => {
@@ -1556,6 +2465,95 @@
             
             fadeElements.forEach(el => observer.observe(el));
             
+            // Contador animado de estadísticas
+            const counters = document.querySelectorAll('.estadistica-numero');
+            
+            function animateCounter(counter) {
+                const target = counter.getAttribute('data-count');
+                if (target.includes('%')) {
+                    const numericTarget = parseInt(target);
+                    let current = 0;
+                    const increment = numericTarget / 100;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= numericTarget) {
+                            counter.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current) + '%';
+                        }
+                    }, 20);
+                } else {
+                    const numericTarget = parseInt(target);
+                    let current = 0;
+                    const increment = numericTarget / 100;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= numericTarget) {
+                            counter.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current);
+                        }
+                    }, 20);
+                }
+            }
+            
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counters.forEach(counter => statsObserver.observe(counter));
+
+            // Slider de testimonios
+            const testimoniosContainer = document.getElementById('testimoniosContainer');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlide = 0;
+            const totalSlides = document.querySelectorAll('.testimonio-card').length;
+            
+            function updateSlider() {
+                testimoniosContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            });
+
+            // Auto-slide cada 5 segundos
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }, 5000);
+
+            // Modal para servicios
+            const modal = document.getElementById('serviceModal');
+            const modalClose = document.querySelector('.modal-close');
+            const modalContent = document.getElementById('modalContent');
+
+            // Cerrar modal al hacer clic en la X
+            modalClose.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Cerrar modal al hacer clic fuera del contenido
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
             // Formulario de cita
             const formCita = document.getElementById('form-cita');
             if (formCita) {
@@ -1623,4 +2621,40 @@
                 }
             });
         });
+
+        // Función para abrir modal de servicios
+        function openServiceModal(serviceKey) {
+            const service = serviciosData[serviceKey];
+            if (!service) return;
+            
+            const modal = document.getElementById('serviceModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <h2>${service.title}</h2>
+                <img src="${service.image}" alt="${service.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin: 20px 0;">
+                <p style="font-size: 1.1rem; color: var(--gris-profesional); margin-bottom: 20px;">${service.description}</p>
+                <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                    ${service.details}
+                </div>
+                <div style="margin-top: 30px; text-align: center;">
+                    <a href="#contacto" class="btn-primary" onclick="document.getElementById('serviceModal').style.display='none'">${service.cta}</a>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        // Función para scroll a sección
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
     </script>
+</body>
+</html>
